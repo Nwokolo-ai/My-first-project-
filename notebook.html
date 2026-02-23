@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Notebook - Curiosity Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .notebook-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .observation-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--accent-teal);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-teal);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--text-secondary);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .entries-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1rem;
+        }
+        
+        .btn-clear {
+            background: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .entries-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .entry-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-yellow);
+            position: relative;
+        }
+        
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--accent-teal);
+        }
+        
+        .entry-category {
+            background: var(--bg-light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        
+        .entry-question {
+            color: var(--accent-yellow);
+            font-style: italic;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: var(--bg-dark);
+            border-radius: 5px;
+        }
+        
+        .entry-content {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .entry-date {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .delete-entry {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--accent-red);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .empty-notebook {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-card);
+            border-radius: 10px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-notebook p {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 <span>Curiosity</span>Lab</div>
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="inventions.html">Inventions</a></li>
+                <li><a href="questions.html">Brain Triggers</a></li>
+                <li><a href="notebook.html" class="active">📓 Science Notebook</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="notebook-container">
+            <h1 class="section-title">📓 Scientific Observation Notebook</h1>
+            
+            <div class="observation-form">
+                <h2 style="color: var(--accent-teal); margin-bottom: 1rem;">Record Your Thoughts</h2>
+                
+                <div class="form-group">
+                    <label for="entryCategory">Category</label>
+                    <select id="entryCategory">
+                        <option value="history">📜 Scientific History</option>
+                        <option value="invention">💡 Invention Insight</option>
+                        <option value="question">🤔 Brain Trigger Response</option>
+                        <option value="experiment">🔬 Personal Experiment</option>
+                        <option value="observation">🌍 Nature Observation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="entryTitle">Title / Subject</label>
+                    <input type="text" id="entryTitle" placeholder="e.g., My thoughts on Newton's prism experiment...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="entryQuestion">What triggered this thought? (Optional)</label>
+                    <input type="text" id="entryQuestion" placeholder="e.g., The question about light spectrum...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="entryContent">Your Observation / Hypothesis / Answer</label>
+                    <textarea id="entryContent" placeholder="Write your scientific thoughts here..."></textarea>
+                </div>
+                
+                <button class="btn-primary" id="saveEntryBtn">💾 Save to Notebook</button>
+            </div>
+            
+            <div class="entries-header">
+                <h2 style="color: var(--accent-yellow);">Your Scientific Notes</h2>
+                <button class="btn-clear" id="clearAllBtn" onclick="clearAllEntries()">Clear All</button>
+            </div>
+            
+            <div id="entriesContainer" class="entries-grid">
+                <!-- Entries will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Curiosity Lab - Every great discovery starts with a single note</p>
+    </footer>
+
+    <script>
+        // Load entries on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEntries();
+            
+            // Save entry button
+            document.getElementById('saveEntryBtn').addEventListener('click', saveEntry);
+            
+            // Mobile menu
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('navMenu').classList.toggle('active');
+            });
+        });
+        
+        function saveEntry() {
+            const category = document.getElementById('entryCategory').value;
+            const title = document.getElementById('entryTitle').value.trim();
+            const question = document.getElementById('entryQuestion').value.trim();
+            const content = document.getElementById('entryContent').value.trim();
+            
+            if (!title || !content) {
+                alert('Please enter at least a title and your thoughts!');
+                return;
+            }
+            
+            const entry = {
+                id: Date.now(),
+                category: category,
+                title: title,
+                question: question,
+                content: content,
+                date: new Date().toLocaleString()
+            };
+            
+            // Get existing entries
+            let entries = JSON.parse(localStorage.getItem('notebookEntries') || '[]');
+            entries.unshift(entry); // Add to beginning
+            localStorage.setItem('notebookEntries', JSON.stringify(entries));
+            
+            // Clear form
+            document.getElementById('entryTitle').value = '';
+            document.getElementById('entryQuestion').value = '';
+            document.getElementById('entryContent').value = '';
+            
+            // Reload entries
+            loadEntries();
+            
+            alert('Entry saved to your notebook!');
+        }
+        
+        function loadEntries() {
+            const container = document.getElementById('entriesContainer');
+            const entries = JSON.parse(localStorage.getItem('notebookEntries') || '[]');
+            
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-notebook">
+                        <span style="font-size: 3rem;">📓</span>
+                        <h3>Your notebook is empty</h3>
+                        <p>Record your first scientific observation above!</p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Every great scientist kept a notebook. Darwin, Newton, Feynman - they all wrote things down.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            entries.forEach(entry => {
+                const categoryIcons = {
+                    history: '📜',
+                    invention: '💡',
+                    question: '🤔',
+                    experiment: '🔬',
+                    observation: '🌍'
+                };
+                
+                const categoryNames = {
+                    history: 'Scientific History',
+                    invention: 'Invention Insight',
+                    question: 'Brain Trigger',
+                    experiment: 'Experiment',
+                    observation: 'Observation'
+                };
+                
+                html += `
+                    <div class="entry-card" id="entry-${entry.id}">
+                        <button class="delete-entry" onclick="deleteEntry(${entry.id})">✕</button>
+                        <div class="entry-header">
+                            <span>${categoryIcons[entry.category] || '📝'} ${categoryNames[entry.category] || 'Note'}</span>
+                            <span class="entry-category">${entry.category}</span>
+                        </div>
+                        <h3 style="color: var(--accent-red); margin-bottom: 0.5rem;">${entry.title}</h3>
+                        ${entry.question ? `<div class="entry-question">💭 "${entry.question}"</div>` : ''}
+                        <div class="entry-content">${entry.content.replace(/\n/g, '<br>')}</div>
+                        <div class="entry-date">📅 ${entry.date}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function deleteEntry(id) {
+            if (confirm('Delete this entry?')) {
+                let entries = JSON.parse(localStorage.getItem('notebookEntries') || '[]');
+                entries = entries.filter(entry => entry.id !== id);
+                localStorage.setItem('notebookEntries', JSON.stringify(entries));
+                loadEntries();
+            }
+        }
+        
+        function clearAllEntries() {
+            if (confirm('Delete ALL notebook entries? This cannot be undone.')) {
+                localStorage.removeItem('notebookEntries');
+                loadEntries();
+            }
+        }
+    </script>
+</body>
+                  </html>
