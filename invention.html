@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventions - Curiosity Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .timeline {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .invention-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid var(--text-secondary);
+        }
+        
+        .invention-year {
+            background: var(--accent-teal);
+            color: var(--bg-dark);
+            font-weight: bold;
+            padding: 1.5rem;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .invention-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .invention-content h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+        
+        .invention-image {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .impact {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            .invention-card {
+                flex-direction: column;
+            }
+            
+            .invention-year {
+                width: 100%;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 <span>Curiosity</span>Lab</div>
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="inventions.html" class="active">Inventions</a></li>
+                <li><a href="questions.html">Brain Triggers</a></li>
+                <li><a href="notebook.html">📓 Science Notebook</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="section-title">💡 Inventions That Changed Humanity</h1>
+        
+        <div class="timeline" id="inventionsContainer">
+            <!-- Loaded via JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Curiosity Lab - Innovation drives humanity forward</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('navMenu').classList.toggle('active');
+            });
+            
+            // Load inventions
+            const container = document.getElementById('inventionsContainer');
+            let html = '';
+            
+            inventions.forEach(item => {
+                html += `
+                    <div class="invention-card">
+                        <div class="invention-year">
+                            <span>${item.year}</span>
+                        </div>
+                        <div class="invention-content">
+                            <div style="display: flex; align-items: center;">
+                                <span class="invention-image">${item.image}</span>
+                                <h3>${item.title}</h3>
+                            </div>
+                            <p>${item.story}</p>
+                            <div class="impact">
+                                <strong>✨ Impact:</strong> ${item.impact}
+                            </div>
+                            <div class="mind-blown">
+                                <strong>🤯 Mind blown:</strong> ${item.mindBlown}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        });
+    </script>
+</body>
+</html>
