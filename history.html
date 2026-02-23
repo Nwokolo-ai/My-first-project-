@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific History - Curiosity Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .history-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .history-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--text-secondary);
+            transition: transform 0.3s;
+        }
+        
+        .history-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-red);
+        }
+        
+        .card-year {
+            background: var(--accent-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            border-radius: 0 0 10px 0;
+            font-weight: bold;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-image {
+            font-size: 4rem;
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-light);
+        }
+        
+        .mind-blown {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border-left: 3px solid var(--accent-yellow);
+            border-radius: 5px;
+        }
+        
+        .mind-blown strong {
+            color: var(--accent-yellow);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 <span>Curiosity</span>Lab</div>
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html" class="active">History</a></li>
+                <li><a href="inventions.html">Inventions</a></li>
+                <li><a href="questions.html">Brain Triggers</a></li>
+                <li><a href="notebook.html">📓 Science Notebook</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="section-title">📜 Scientific History: Moments of Genius</h1>
+        
+        <div class="history-grid" id="historyContainer">
+            <!-- Loaded via JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Curiosity Lab - Learning from the past to understand the future</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('navMenu').classList.toggle('active');
+            });
+            
+            // Load history cards
+            const container = document.getElementById('historyContainer');
+            let html = '';
+            
+            scienceHistory.forEach(item => {
+                html += `
+                    <div class="history-card">
+                        <div class="card-year">${item.year}</div>
+                        <div class="card-image">${item.image}</div>
+                        <div class="card-content">
+                            <h3>${item.title}</h3>
+                            <p>${item.story}</p>
+                            <div class="mind-blown">
+                                <strong>🤯 Mind blown:</strong> ${item.mindBlown}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        });
+    </script>
+</body>
+</html>
